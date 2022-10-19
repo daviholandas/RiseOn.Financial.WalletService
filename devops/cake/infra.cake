@@ -4,15 +4,15 @@ using SystemTask = System.Threading.Tasks.Task;
 ///////////////////////////////////////////////////////////////////////////////
 // ARGUMENTS
 ///////////////////////////////////////////////////////////////////////////////
-var projectName = Argument("projectName","");
+var project_Name = Argument("projectName","walletservice");
 var dockerComposeMongo = "./devops/mongo-infra/docker-compose-mongors.yml";
 var dockerCompose = "./devops/docker-compose.yml";
 var composeSettings = new DockerComposeUpSettings
-        {
-            Files = new string[] { dockerComposeMongo, dockerCompose },
-            DetachedMode = true,
-            ProjectName = projectName
-        };
+    {
+        Files = new string[] { dockerComposeMongo, dockerCompose },
+        DetachedMode = true,
+        ProjectName = project_Name
+    };
 
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -57,7 +57,7 @@ Task("SQLServer")
 Task("SonarQube")
 .Does(() => {
     Information("Creating SonarQube container...");
-    composeSettings.ProjectName = "RiseOn.Financial.WalletService";
+    composeSettings.ProjectName = "riseon";
     DockerComposeUp(composeSettings, new string[] { "sonarqube" });
     Information("The SonarQube was created.");
 });

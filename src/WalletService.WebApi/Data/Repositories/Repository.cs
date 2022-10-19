@@ -10,7 +10,7 @@ public class Repository<T> : IRepository<T> where T : Entity
 
     public Repository(IMongoDatabase database)
     {
-        this._collection = database.GetCollection<T>(nameof(T));
+        this._collection = database.GetCollection<T>($"{typeof(T).Name}s");
     }
 
     public void Add(T entity)
