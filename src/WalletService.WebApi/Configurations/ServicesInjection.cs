@@ -19,12 +19,18 @@ public static class ServicesInjection
 
         serviceCollection.AddScoped<IMongoDatabase>(_ =>
             new MongoClient(settings?.DatabaseSettings.ConnectionString)
-                .GetDatabase(settings?.DatabaseSettings.CollectionName));
+                .GetDatabase(settings?.DatabaseSettings.DatabaseName));
 
-        WalletDataMapper.Mapper();
+        RegisterDataMappers();
 
         serviceCollection.AddTransient<IWalletRepository, WalletRepository>();
 
         return serviceCollection;
+    }
+
+    private static void RegisterDataMappers()
+    {
+        WalletDataMapper.Mapper();
+        BaseEntityMapper.Mapper();
     }
 }

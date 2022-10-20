@@ -26,8 +26,9 @@ app.MapPost("api/wallet", async (CommonWallet wallet, IWalletRepository reposito
     var walletEntity = new Wallet(wallet.Name, wallet.Amount, Currency.Euro, WalletType.Money, null, wallet.Description);
         await repository.AddAsync(walletEntity, CancellationToken.None);
         return Results.Created($"/wallet/{walletEntity.Id}", wallet);
-    });
+});
 
+app.MapGet("api/wallet", async (IWalletRepository repository) => await repository.GetAllAsync(CancellationToken.None));
 app.UseHttpsRedirection();
 
 app.UseAuthorization();

@@ -6,7 +6,7 @@ public interface IRepository<T>
 
     ValueTask AddAsync(T entity, CancellationToken cancellationToken);
 
-    ValueTask<IEnumerable<T>> GetAllAsync(T entity, CancellationToken cancellationToken);
+    ValueTask<IEnumerable<T>> GetAllAsync(CancellationToken cancellationToken);
 
     Task<T?> GetByIdAsync(Guid id, CancellationToken cancellationToken);
 }

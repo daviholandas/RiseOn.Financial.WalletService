@@ -10,7 +10,7 @@ public class Repository<T> : IRepository<T> where T : Entity
 
     public Repository(IMongoDatabase database)
     {
-        this._collection = database.GetCollection<T>($"{typeof(T).Name}s");
+        this._collection = database.GetCollection<T>(typeof(T).Name);
     }
 
     public void Add(T entity)
@@ -19,8 +19,9 @@ public class Repository<T> : IRepository<T> where T : Entity
     public async ValueTask AddAsync(T entity, CancellationToken cancellationToken = default)
         => await this._collection.InsertOneAsync(entity, cancellationToken: cancellationToken);
 
-    public async ValueTask<IEnumerable<T>> GetAllAsync(T entity, CancellationToken cancellationToken = default)
-        => (await this._collection.FindAsync(FilterDefinition<T>.Empty, cancellationToken: cancellationToken)).Current;
+    public async ValueTask<IEnumerable<T>> GetAllAsync(CancellationToken cancellationToken)
+        => await (await this._collection.FindAsync(FilterDefinition<T>.Empty, cancellationToken: cancellationToken))
+            .ToListAsync(cancellationToken);
 
     public async Task<T?> GetByIdAsync(Guid id, CancellationToken cancellationToken)
         => (await this._collection.FindAsync(

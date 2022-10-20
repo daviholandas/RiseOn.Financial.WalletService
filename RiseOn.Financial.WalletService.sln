@@ -2,6 +2,12 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WalletService.WebApi", "src\WalletService.WebApi\WalletService.WebApi.csproj", "{4C1387DB-1D85-4142-8E14-196749E96245}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{B1B7CDFA-3779-4CE2-BC22-21AA0769F8F4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WalletService.Tests", "tests\WalletService.Tests\WalletService.Tests.csproj", "{BF10AF40-D916-4E64-9B93-37472F2526AB}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{ABEFEEB1-7A7C-4FC7-B97B-4AB3E2C87BDB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -10,5 +16,13 @@ Global
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{4C1387DB-1D85-4142-8E14-196749E96245}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{4C1387DB-1D85-4142-8E14-196749E96245}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BF10AF40-D916-4E64-9B93-37472F2526AB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BF10AF40-D916-4E64-9B93-37472F2526AB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BF10AF40-D916-4E64-9B93-37472F2526AB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BF10AF40-D916-4E64-9B93-37472F2526AB}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{BF10AF40-D916-4E64-9B93-37472F2526AB} = {B1B7CDFA-3779-4CE2-BC22-21AA0769F8F4}
+		{4C1387DB-1D85-4142-8E14-196749E96245} = {ABEFEEB1-7A7C-4FC7-B97B-4AB3E2C87BDB}
 	EndGlobalSection
 EndGlobal

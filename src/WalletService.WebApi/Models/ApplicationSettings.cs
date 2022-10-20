@@ -7,5 +7,5 @@ public class ApplicationSettings
 public record DatabaseSettings
 {
     public string ConnectionString { get; set; }
-    public string CollectionName { get; set; }
+    public string DatabaseName { get; set; }
 };
