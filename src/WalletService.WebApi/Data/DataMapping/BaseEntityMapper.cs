@@ -12,8 +12,7 @@ public static class BaseEntityMapper
         {
             map.AutoMap();
             map.MapMember(x => x.CreateAt)
-                .SetSerializer(new DateTimeSerializer(DateTimeKind.Utc))
-                .SetDefaultValue(DateTime.UtcNow);
+                .SetSerializer(new DateTimeSerializer(DateTimeKind.Local));
         });
     }
 }

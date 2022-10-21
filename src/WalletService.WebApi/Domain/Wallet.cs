@@ -8,14 +8,14 @@ namespace WalletService.WebApi.Domain;
 public record Wallet: Entity, IAggregateRoot
 {
     public Wallet(string name, decimal amount,
-        Currency currency, WalletType type, 
+        Currency currency, WalletType walletType, 
         decimal? limit,string? description = "")
     {
         this.Name = name ?? throw new ArgumentNullException(nameof(name));
         this.Description = description;
         this.Amount = amount;
         this.Currency = currency;
-        this.Type = type;
+        this.WalletType = walletType;
         this.Limit = limit ?? amount;
     }
 
@@ -31,23 +31,23 @@ public record Wallet: Entity, IAggregateRoot
         this.Flag = flag;
     }
 
-    public string Name { get; set; }
+    public string Name { get; private set; }
 
     public string? Description { get; set; }
 
-    public decimal Amount { get; set; }
+    public decimal Amount { get; private set; }
 
-    public Currency Currency { get; }
+    public Currency Currency { get; private set; }
 
-    public WalletType Type { get; }
+    public WalletType WalletType { get; private set; }
 
-    public decimal? Limit { get; }
+    public decimal? Limit { get; private set; }
 
-    public int? DueDate { get; }
+    public int? DueDate { get; private set; }
 
-    public int? ClosingDay { get; }
+    public int? ClosingDay { get; private set; }
 
-    public Flag? Flag { get; }
+    public Flag? Flag { get; private set; }
 
     public decimal DecreaseAmount(decimal value)
     {

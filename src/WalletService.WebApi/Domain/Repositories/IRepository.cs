@@ -1,4 +1,6 @@
-﻿namespace WalletService.WebApi.Domain.Repositories;
+﻿using System.Linq.Expressions;
+
+namespace WalletService.WebApi.Domain.Repositories;
 
 public interface IRepository<T>
 {
@@ -8,5 +10,10 @@ public interface IRepository<T>
 
     ValueTask<IEnumerable<T>> GetAllAsync(CancellationToken cancellationToken);
 
-    Task<T?> GetByIdAsync(Guid id, CancellationToken cancellationToken);
+    T? GetById(Guid id);
+
+    ValueTask<T?> GetByIdAsync(Guid id, CancellationToken cancellationToken);
+
+    ValueTask<IEnumerable<T>> GetByFiltersAsync(IDictionary<Expression<Func<T, object>>, object> filters,
+        CancellationToken cancellationToken);
 }
