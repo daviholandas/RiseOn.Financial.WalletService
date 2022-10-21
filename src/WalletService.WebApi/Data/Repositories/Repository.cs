@@ -1,4 +1,5 @@
-﻿using MongoDB.Driver;
+﻿using System.Linq.Expressions;
+using MongoDB.Driver;
 using RiseOn.Domain.Record;
 using WalletService.WebApi.Domain.Repositories;
 
@@ -20,11 +21,28 @@ public class Repository<T> : IRepository<T> where T : Entity
         => await this._collection.InsertOneAsync(entity, cancellationToken: cancellationToken);
 
     public async ValueTask<IEnumerable<T>> GetAllAsync(CancellationToken cancellationToken)
-        => await (await this._collection.FindAsync(FilterDefinition<T>.Empty, cancellationToken: cancellationToken))
+    {
+        return await (await this._collection.FindAsync(x => true, cancellationToken: cancellationToken))
             .ToListAsync(cancellationToken);
+    }
 
-    public async Task<T?> GetByIdAsync(Guid id, CancellationToken cancellationToken)
-        => (await this._collection.FindAsync(
+    public async ValueTask<T?> GetByIdAsync(Guid id, CancellationToken cancellationToken)
+        => await (await this._collection.FindAsync(
             Builders<T>.Filter.Eq(x => x.Id, id), 
-            cancellationToken: cancellationToken)).Current.FirstOrDefault();
+            cancellationToken: cancellationToken))
+            .FirstOrDefaultAsync(cancellationToken);
+
+    public async ValueTask<IEnumerable<T>> GetByFiltersAsync(IDictionary<Expression<Func<T, object>>, object> filters,
+        CancellationToken cancellationToken)
+    {
+        var builderFilter = Builders<T>.Filter;
+        var initialFilter = filters
+            .Aggregate(builderFilter.Empty, 
+                (current, filter) => current & builderFilter.Eq(filter.Key, filter.Value));
+        return await this._collection.FindSync(initialFilter, null, cancellationToken).ToListAsync(cancellationToken);
+    }
+
+    public T? GetById(Guid id)
+        => this._collection.FindSync(
+            Builders<T>.Filter.Eq(x => x.Id, id)).FirstOrDefault();
 }
