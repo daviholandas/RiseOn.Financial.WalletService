@@ -23,7 +23,8 @@ public record Wallet: Entity, IAggregateRoot
         decimal amount, Currency currency, 
         WalletType type, decimal? limit,
         int? dueDate, int? closingDay, 
-        Flag? flag) : this(name, amount,
+        Flag? flag) 
+        : this(name, amount,
         currency, type,limit, description)
     {
         this.DueDate = dueDate;

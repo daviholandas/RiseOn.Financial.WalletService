@@ -1,7 +1,12 @@
-﻿using Microsoft.Extensions.Options;
+﻿using System.Reflection;
+using FluentValidation;
+using Mapster;
+using MapsterMapper;
+using Microsoft.Extensions.Options;
 using MongoDB.Driver;
 using WalletService.WebApi.Data.DataMapping;
 using WalletService.WebApi.Data.Repositories;
+using WalletService.WebApi.Domain;
 using WalletService.WebApi.Domain.Repositories;
 using WalletService.WebApi.Models;
 
@@ -11,6 +16,7 @@ public static class ServicesInjection
 {
     public static IServiceCollection AddServicesCollection(this IServiceCollection serviceCollection, IConfiguration configuration)
     {
+        var assembly = Assembly.GetExecutingAssembly();
         serviceCollection.Configure<ApplicationSettings>(configuration.GetSection(nameof(ApplicationSettings)));
 
         var settings = configuration
@@ -24,6 +30,15 @@ public static class ServicesInjection
         RegisterDataMappers();
 
         serviceCollection.AddTransient<IWalletRepository, WalletRepository>();
+
+        // MapperConfig
+        var config = TypeAdapterConfig.GlobalSettings;
+        config.Scan(assembly);
+        serviceCollection.AddSingleton(config);
+        serviceCollection.AddScoped<IMapper, ServiceMapper>();
+
+        //Validators
+        serviceCollection.AddValidatorsFromAssembly(assembly);
 
         return serviceCollection;
     }

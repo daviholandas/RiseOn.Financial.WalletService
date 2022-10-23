@@ -7,14 +7,14 @@
     </PropertyGroup>
 
     <ItemGroup>
+        <PackageReference Include="FluentValidation" Version="11.2.2" />
+        <PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="11.2.2" />
+        <PackageReference Include="Mapster.Core" Version="1.2.1-pre02" />
+        <PackageReference Include="Mapster.DependencyInjection" Version="1.0.0" />
         <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="7.0.0-rc.2.22476.2" />
         <PackageReference Include="MongoDB.Driver" Version="2.18.0" />
         <PackageReference Include="RiseOn.Common" Version="1.0.1-alpha" />
         <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
-    </ItemGroup>
-
-    <ItemGroup>
-      <Folder Include="Controllers" />
     </ItemGroup>
 
 </Project>

@@ -26,10 +26,6 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="Units" />
-    </ItemGroup>
-
-    <ItemGroup>
       <ProjectReference Include="..\..\src\WalletService.WebApi\WalletService.WebApi.csproj" />
     </ItemGroup>
 
