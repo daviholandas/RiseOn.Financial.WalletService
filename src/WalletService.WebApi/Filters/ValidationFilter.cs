@@ -1,4 +1,5 @@
 ﻿using FluentValidation;
+using WalletService.WebApi.Models;
 using WalletService.WebApi.Models.Inputs;
 
 namespace WalletService.WebApi.Filters;
@@ -21,9 +22,12 @@ public class ValidationFilter : IEndpointFilter
             .GetService(typeof(IValidator<>).MakeGenericType(input.GetType())) as IValidator;
 
         var result = await validator?.ValidateAsync(validationContext)!;
-        
+
         return result.IsValid
             ? await next(context)
-            : Results.BadRequest(result.Errors);
+            : Results.BadRequest(result.Errors.Select(_ => new ErrorApplication
+            {
+                ErrorMessage = $"{_.PropertyName} - {_.ErrorMessage}"
+            }));
     }
 }
