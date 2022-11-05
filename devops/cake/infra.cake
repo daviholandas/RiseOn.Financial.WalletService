@@ -5,11 +5,11 @@ using SystemTask = System.Threading.Tasks.Task;
 // ARGUMENTS
 ///////////////////////////////////////////////////////////////////////////////
 var project_Name = Argument("projectName","walletservice");
-var dockerComposeMongo = "./devops/mongo-infra/docker-compose-mongors.yml";
-var dockerCompose = "./devops/docker-compose.yml";
+var dockerComposeMongo = "./devops/mongo-infra/docker-compose-mongors.yaml";
+var dockerComposeSonar = "./devops/docker-compose-sonar.yaml";
 var composeSettings = new DockerComposeUpSettings
     {
-        Files = new string[] { dockerComposeMongo, dockerCompose },
+        Files = new string[] { dockerComposeMongo, dockerComposeSonar },
         DetachedMode = true,
         ProjectName = project_Name
     };

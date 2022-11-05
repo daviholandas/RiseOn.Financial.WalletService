@@ -1,0 +1,11 @@
+version: "3.9"
+
+services:
+  walletservice:
+    image: riseon-financial-walletservice:1.0.0
+    container_name: walletservice
+    build:
+      context: ./../
+      dockerfile: ./devops/Dockerfile
+    ports:
+      - "9580:9580"

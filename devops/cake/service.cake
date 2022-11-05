@@ -1,0 +1,36 @@
+#addin nuget:?package=Cake.Docker
+///////////////////////////////////////////////////////////////////////////////
+// ARGUMENTS
+///////////////////////////////////////////////////////////////////////////////
+var dockerCompose = "./devops/docker-compose.yaml";
+
+///////////////////////////////////////////////////////////////////////////////
+// SETUP / TEARDOWN
+///////////////////////////////////////////////////////////////////////////////
+
+Setup(ctx =>
+{
+   // Executed BEFORE the first task.
+   Information("Running tasks...");
+});
+
+Teardown(ctx =>
+{
+   // Executed AFTER the last task.
+   Information("Finished running tasks.");
+});
+
+///////////////////////////////////////////////////////////////////////////////
+// TASKS
+///////////////////////////////////////////////////////////////////////////////
+
+Task("Publish-Docker")
+.Does(() => {
+   Information("Dockering the service...");
+   DockerComposeUp(new DockerComposeUpSettings
+                       {
+                           Files = new string[] { dockerCompose },
+                           DetachedMode = true,
+                           ProjectName = "riseon-financial-walletservice"
+                       });
+   });
