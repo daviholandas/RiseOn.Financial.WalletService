@@ -10,7 +10,7 @@ public static class WalletDataMapper
 {
     public static void Mapper()
     {
-        BsonClassMap.RegisterClassMap<Wallet>(map =>
+        var re = BsonClassMap.RegisterClassMap<Wallet>(map =>
         {
             map.AutoMap();
             map.MapMember(x => x.Currency)

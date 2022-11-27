@@ -7,6 +7,8 @@ public class CommonWalletInputValidator : AbstractValidator<CommonWalletInput>
 {
     public CommonWalletInputValidator()
     {
+        this.RuleLevelCascadeMode = CascadeMode.Continue;
+
         this.RuleFor(x => x.Name)
             .NotEmpty();
         this.RuleFor(x => x.Amount)

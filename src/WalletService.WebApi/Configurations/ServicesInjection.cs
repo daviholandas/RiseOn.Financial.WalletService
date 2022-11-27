@@ -2,11 +2,9 @@
 using FluentValidation;
 using Mapster;
 using MapsterMapper;
-using Microsoft.Extensions.Options;
 using MongoDB.Driver;
 using WalletService.WebApi.Data.DataMapping;
 using WalletService.WebApi.Data.Repositories;
-using WalletService.WebApi.Domain;
 using WalletService.WebApi.Domain.Repositories;
 using WalletService.WebApi.Models;
 

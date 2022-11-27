@@ -4,6 +4,9 @@
         <TargetFramework>net7.0</TargetFramework>
         <Nullable>enable</Nullable>
         <ImplicitUsings>enable</ImplicitUsings>
+        <ContainerBaseImage>mcr.microsoft.com/dotnet/aspnet:7.0</ContainerBaseImage>
+        <ContainerImageName>riseon-financial-walletservice</ContainerImageName>
+        <ContainerImageTag>1.0.0-alpha</ContainerImageTag>
         <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
     </PropertyGroup>
 
@@ -13,9 +16,21 @@
         <PackageReference Include="Mapster.Core" Version="1.2.1-pre02" />
         <PackageReference Include="Mapster.DependencyInjection" Version="1.0.0" />
         <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="7.0.0-rc.2.22476.2" />
+        <PackageReference Include="Microsoft.NET.Build.Containers" Version="0.2.7" />
         <PackageReference Include="MongoDB.Driver" Version="2.18.0" />
+        <PackageReference Include="OpenTelemetry.Exporter.Console" Version="1.4.0-beta.3" />
+        <PackageReference Include="OpenTelemetry.Exporter.Prometheus.AspNetCore" Version="1.4.0-beta.3" />
+        <PackageReference Include="OpenTelemetry.Extensions.Hosting" Version="1.0.0-rc9.9" />
+        <PackageReference Include="OpenTelemetry.Instrumentation.AspNetCore" Version="1.0.0-rc9.9" />
+        <PackageReference Include="OpenTelemetry.Instrumentation.EventCounters" Version="1.0.0-alpha.2" />
+        <PackageReference Include="OpenTelemetry.Instrumentation.Http" Version="1.0.0-rc9.9" />
+        <PackageReference Include="OpenTelemetry.Instrumentation.Process" Version="1.0.0-alpha.2" />
+        <PackageReference Include="OpenTelemetry.Instrumentation.Runtime" Version="1.0.0" />
         <PackageReference Include="RiseOn.Common" Version="1.0.1-alpha" />
         <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
     </ItemGroup>
 
+    <ItemGroup>
+        <InternalsVisibleTo Include="WalletService.Tests" />
+    </ItemGroup>
 </Project>

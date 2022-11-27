@@ -1,18 +1,16 @@
-﻿using System.Linq.Expressions;
-using MongoDB.Bson.Serialization;
-using WalletService.WebApi.Data.DataMapping;
-using WalletService.WebApi.Domain;
+﻿using WalletService.WebApi.Data.DataMapping;
 
 namespace WalletService.Tests.Fixtures;
 
 public class DatabaseFixture<T> : IAsyncLifetime
 {
-    private readonly TestcontainerDatabase _testContainer;
-    private IMongoDatabase _mongoDatabase;
-    private IMongoCollection<T> _mongoCollection;
+    private readonly bool _enableCollection;
     private readonly Fixture _fixture = new ();
+    private readonly TestcontainerDatabase _testContainer;
+    private IMongoCollection<T> _mongoCollection;
+    private IMongoDatabase _mongoDatabase;
 
-    public DatabaseFixture()
+    public DatabaseFixture(bool enableCollection = true)
     {
         this._testContainer =  new TestcontainersBuilder<MongoDbTestcontainer>()
             .WithDatabase(new MongoDbTestcontainerConfiguration
@@ -22,18 +20,25 @@ public class DatabaseFixture<T> : IAsyncLifetime
                 Password = "mongo"
             })
             .Build();
+        this._enableCollection = enableCollection;
     }
 
     public IMongoDatabase MongoDatabase => this._mongoDatabase;
 
     public async Task InitializeAsync()
     {
+       
         await this._testContainer.StartAsync()
             .ConfigureAwait(false);
-        WalletDataMapper.Mapper();
+        
         this._mongoDatabase = new MongoClient(this._testContainer.ConnectionString)
             .GetDatabase(this._testContainer.Database);
-        this._mongoCollection = this.MongoDatabase.GetCollection<T>(typeof(T).Name);
+
+        if (this._enableCollection)
+        {
+            WalletDataMapper.Mapper();
+            this._mongoCollection = this.MongoDatabase.GetCollection<T>(typeof(T).Name);
+        }
     }
 
     public async Task DisposeAsync()

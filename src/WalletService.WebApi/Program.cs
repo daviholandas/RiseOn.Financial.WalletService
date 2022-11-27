@@ -1,4 +1,3 @@
-using System.Reflection;
 using WalletService.WebApi.Configurations;
 using WalletService.WebApi.Domain;
 using WalletService.WebApi.Domain.Repositories;
@@ -20,6 +19,8 @@ builder.Services.AddSwaggerGen(options =>
 });
 
 builder.Services.AddServicesCollection(builder.Configuration);
+
+builder.AddTelemetry();
 
 var app = builder.Build();
 
@@ -80,3 +81,5 @@ walletGroup.MapGet("/", async (IWalletRepository walletRepository,
     .Produces(StatusCodes.Status500InternalServerError);
 
 app.Run();
+
+public partial class Program {}

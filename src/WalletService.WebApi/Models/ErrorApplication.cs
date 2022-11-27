@@ -1,6 +1,4 @@
-﻿using System.Text.Json.Serialization;
-
-namespace WalletService.WebApi.Models;
+﻿namespace WalletService.WebApi.Models;
 
 public struct ErrorApplication
 {

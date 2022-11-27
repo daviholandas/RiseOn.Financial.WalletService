@@ -33,4 +33,20 @@ Task("Publish-Docker")
                            DetachedMode = true,
                            ProjectName = "riseon-financial-walletservice"
                        });
-   });
+});
+
+Task("Publish-Container")
+.Does(() => {
+   Information("Publishing the service as container...");
+   DotNetPublishSettings settings = new() 
+   {
+      Configuration = "Release",
+      Verbosity = DotNetVerbosity.Minimal,
+      ArgumentCustomization = args => args
+         .Append(" --os linux")
+         .Append(" --arch x64")
+         .Append(" -p:PublishProfile=DefaultContainer")
+   };
+
+   DotNetPublish(solutionPath, settings);
+});

@@ -6,3 +6,4 @@ global using AutoFixture;
 global using MongoDB.Driver;
 global using Bogus;
 global using FluentAssertions;
+global using Microsoft.AspNetCore.Mvc.Testing;
